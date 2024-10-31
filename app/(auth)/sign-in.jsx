@@ -10,7 +10,7 @@ export default function Page() {
   const router = useRouter()
 
   const [emailAddress, setEmailAddress] = useState('')
-  const [password, setPassword] = useState('')
+  const [pass, setPassword] = useState('')
 
   const onSignInPress = useCallback(async () => {
     if (!isLoaded) {
@@ -20,7 +20,7 @@ export default function Page() {
     try {
       const signInAttempt = await signIn.create({
         identifier: emailAddress,
-        password,
+        password:pass,
       })
 
       if (signInAttempt.status === 'complete') {
@@ -33,7 +33,7 @@ export default function Page() {
     } catch (err) {
       console.error(JSON.stringify(err, null, 2))
     }
-  }, [isLoaded, emailAddress, password])
+  }, [isLoaded, emailAddress, pass])
 
   return (
     <View className='bg-white flex-1 items-center justify-center px-4'>
@@ -46,15 +46,15 @@ export default function Page() {
       <CustomField
         label='password'
         containerStyle=""
-        value={password}
+        value={pass}
         handleChangeText={(e) => setPassword(e)}
       />
       <Text>{emailAddress}</Text>
-      <Text>{password}</Text>
+      <Text>{pass}</Text>
       <CustomButton
         title="Sign In"
         containerStyle='mt-6'
-        onPress={onSignInPress} />
+        handlePress={onSignInPress} />
       <View className='flex-row gap-x-3 mt-3'>
         <Text>Don't have an account?</Text>
         <Link href="/sign-up">
